@@ -1,6 +1,4 @@
-# Master-Slave-Replication-in-PSQL
-
-> Setting up Master Slave in PLSql:
+# Setting up Master Slave Replication in PostgreSQL:
 
 ## Understanding replication in PostgreSQL
 
