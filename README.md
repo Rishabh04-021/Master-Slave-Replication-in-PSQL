@@ -136,7 +136,6 @@ Now create a file recovery.conf in your PGDATA directory
 standby_mode          = 'on'
 primary_conninfo      = 'host=172.17.0.2 port=5432 user=replicate password=MySuperPassword'
 trigger_file = '/tmp/MasterNow'
-#restore_command = 'cp /home/postgresql_wal/%f "%p"'
 ```
 
 Here is an explanation for each line :
