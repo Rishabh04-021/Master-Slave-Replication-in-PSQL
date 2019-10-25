@@ -1,4 +1,4 @@
-# Setting up Master Slave Replication in PostgreSQL:
+# Setting up Master Slave Replication in PostgreSQL using Dockers:
 
 ## Understanding replication in PostgreSQL
 
@@ -32,6 +32,8 @@ ufw status
 ```
 
 UFW firewall has been installed and the PostgreSQL service has been added.
+
+**Note - Add docker content**
 
 ## Master -
 Create a role dedicated to the replication -
