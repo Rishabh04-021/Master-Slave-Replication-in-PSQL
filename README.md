@@ -94,11 +94,9 @@ Add an entry to pg_hba.conf of the master to allow replication connections from
 
 ```
 # Localhost
-host    replication     replica          127.0.0.1/32            md5
- 
+host    replication     replica          127.0.0.1/32             md5
 # PostgreSQL Master IP address
 host    replication     replica          10.0.15.10/32            md5
- 
 # PostgreSQL SLave IP address
 host    replication     replica          10.0.15.11/32            md5
 ```
@@ -188,6 +186,12 @@ backend_type     | walsender
 * How to recreate database from the archive files?
 
 ## References -
-https://www.percona.com/blog/2018/09/07/setting-up-streaming-replication-postgresql/
-https://blog.raveland.org/post/postgresql_sr/
-https://www.howtoforge.com/tutorial/how-to-set-up-master-slave-replication-for-postgresql-96-on-ubuntu-1604/#step-configure-the-postgresql-master-server
+1. [Setting up Streaming Replication Postgresql](https://www.percona.com/blog/2018/09/07/setting-up-streaming-replication-postgresql/)
+2. [Postgresql Raveland blog](https://blog.raveland.org/post/postgresql_sr/)
+3. [How to set up master slave replication for postgresql](https://www.howtoforge.com/tutorial/how-to-set-up-master-slave-replication-for-postgresql-96-on-ubuntu-1604/)
+
+## Required Modifications 
+1. Edit postgresql.conf section
+2. Add the process for docker configuration
+3. Take  master and slave sample IP
+4. Grammatical corrections.
