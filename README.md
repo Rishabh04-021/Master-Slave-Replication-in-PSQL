@@ -159,7 +159,7 @@ Password:
 ```
 
 Now, all your master’s data are copied on the slave. 
-Now create a file recovery.conf (recovery.done for pg version 12) in your PGDATA directory
+Now create a file recovery.conf (for pg version 12 see [this](https://www.postgresql.org/docs/12/release-12.html) in your PGDATA directory
 ```
 standby_mode          = 'on'
 primary_conninfo      = 'host=172.17.0.2 port=5432 user=replicate password=MySuperPassword'
