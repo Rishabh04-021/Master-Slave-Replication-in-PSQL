@@ -79,6 +79,7 @@ Now check the new user with 'du' query below, and you will see the replica user 
 ```
 
 ### Edit postgresql.conf -
+Note - the postgresql.conf would be present in the following location in case of external volume ``/mnt/EXTERNAL_VOLUME_NAME/postgres/postgresql.conf`` 
 
 The following parameters on the master are considered as mandatory when setting up streaming replication.
 * **archive_mode** : Must be set to ON to enable archiving of WALs.
