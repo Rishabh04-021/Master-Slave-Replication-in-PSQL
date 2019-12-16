@@ -33,7 +33,36 @@ ufw status
 
 UFW firewall has been installed and the PostgreSQL service has been added.
 
-**Note - Add docker content**
+## Setting up Docker using external volume
+
+### Install docker
+You can install docker from your default package manager or using some other service like [**Snapcraft**](https://snapcraft.io/) e.g. ``snap install docker``
+
+### Setup Docker engine
+#### Pull postgress in docker
+```
+docker pull postgres
+```
+
+#### Create docker
+```
+docker run --name DOCKER_NAME -e POSTGRES_PASSWORD=PASSWORD -d -p 0.0.0.0:5432:5432 -v /mnt/EXTERNAL_VOLUME_NAME/postgres:/var/lib/postgresql/data  postgres
+```
+
+### Check for running dockers
+```
+docker ps
+```
+
+### View all available dockers
+```
+docker ps -a
+```
+
+### Enter into Docker shel
+```
+docker exec -it DOCKER_NAME /bin/bash
+```
 
 ## Master -
 Create a role dedicated to the replication -
