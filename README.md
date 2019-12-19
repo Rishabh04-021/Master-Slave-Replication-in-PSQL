@@ -1,4 +1,4 @@
-# Setting up Master Slave Replication in PostgreSQL (upto version 11) using Dockers:
+# Setting up Master Slave Replication in PostgreSQL (upto version 11) using Dockers and external volumes:
 
 ## Understanding replication in PostgreSQL (upto version 11)
 
