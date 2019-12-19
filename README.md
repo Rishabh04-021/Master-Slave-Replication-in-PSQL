@@ -1,6 +1,6 @@
-# Setting up Master Slave Replication in PostgreSQL using Dockers:
+# Setting up Master Slave Replication in PostgreSQL (upto version 11) using Dockers:
 
-## Understanding replication in PostgreSQL
+## Understanding replication in PostgreSQL (upto version 11)
 
 Streaming replication in PostgreSQL works on log shipping. Every transaction in postgres is written to a transaction log called WAL (write-ahead log) to achieve durability. A slave uses these WAL segments to continuously replicate changes from its master.
 
@@ -159,7 +159,8 @@ Password:
 ```
 
 Now, all your master’s data are copied on the slave. 
-Now create a file recovery.conf (for pg version 12 see [this](https://www.postgresql.org/docs/12/release-12.html) in your PGDATA directory
+Now create a file recovery.conf in your PGDATA directory.
+Note - the recovery.conf is removed in version 12 onwards, for information see [this](https://www.postgresql.org/docs/12/release-12.html
 ```
 standby_mode          = 'on'
 primary_conninfo      = 'host=172.17.0.2 port=5432 user=replicate password=MySuperPassword'
