@@ -1,6 +1,6 @@
-# Setting up Master Slave Replication in PostgreSQL:
+# Setting up Master Slave Replication in PostgreSQL (upto version 11) using Dockers and external volumes:
 
-## Understanding replication in PostgreSQL
+## Understanding replication in PostgreSQL (upto version 11)
 
 Streaming replication in PostgreSQL works on log shipping. Every transaction in postgres is written to a transaction log called WAL (write-ahead log) to achieve durability. A slave uses these WAL segments to continuously replicate changes from its master.
 
@@ -33,6 +33,37 @@ ufw status
 
 UFW firewall has been installed and the PostgreSQL service has been added.
 
+## Setting up Docker using external volume
+
+### Install docker
+You can install docker from your default package manager or using some other service like [**Snapcraft**](https://snapcraft.io/) e.g. ``snap install docker``
+
+### Setup Docker engine
+#### Pull postgress in docker
+```
+docker pull postgres
+```
+
+#### Create docker
+```
+docker run --name DOCKER_NAME -e POSTGRES_PASSWORD=PASSWORD -d -p 0.0.0.0:5432:5432 -v /mnt/EXTERNAL_VOLUME_NAME/postgres:/var/lib/postgresql/data  postgres
+```
+
+### Check for running dockers
+```
+docker ps
+```
+
+### View all available dockers
+```
+docker ps -a
+```
+
+### Enter into Docker shel
+```
+docker exec -it DOCKER_NAME /bin/bash
+```
+
 ## Master -
 Create a role dedicated to the replication -
 Create the user in master using whichever slave should connect for streaming the WALs. This user must have REPLICATION ROLE.
@@ -48,6 +79,7 @@ Now check the new user with 'du' query below, and you will see the replica user 
 ```
 
 ### Edit postgresql.conf -
+Note - the postgresql.conf would be present in the following location in case of external volume ``/mnt/EXTERNAL_VOLUME_NAME/postgres/postgresql.conf`` 
 
 The following parameters on the master are considered as mandatory when setting up streaming replication.
 * **archive_mode** : Must be set to ON to enable archiving of WALs.
@@ -92,11 +124,9 @@ Add an entry to pg_hba.conf of the master to allow replication connections from
 
 ```
 # Localhost
-host    replication     replica          127.0.0.1/32            md5
- 
+host    replication     replica          127.0.0.1/32             md5
 # PostgreSQL Master IP address
 host    replication     replica          10.0.15.10/32            md5
- 
 # PostgreSQL SLave IP address
 host    replication     replica          10.0.15.11/32            md5
 ```
@@ -129,7 +159,8 @@ Password:
 ```
 
 Now, all your master’s data are copied on the slave. 
-Now create a file recovery.conf in your PGDATA directory
+Now create a file recovery.conf in your PGDATA directory.
+Note - the recovery.conf is removed in version 12 onwards, for information see [this](https://www.postgresql.org/docs/12/release-12.html
 ```
 standby_mode          = 'on'
 primary_conninfo      = 'host=172.17.0.2 port=5432 user=replicate password=MySuperPassword'
@@ -186,6 +217,12 @@ backend_type     | walsender
 * How to recreate database from the archive files?
 
 ## References -
-https://www.percona.com/blog/2018/09/07/setting-up-streaming-replication-postgresql/
-https://blog.raveland.org/post/postgresql_sr/
-https://www.howtoforge.com/tutorial/how-to-set-up-master-slave-replication-for-postgresql-96-on-ubuntu-1604/#step-configure-the-postgresql-master-server
+1. [Setting up Streaming Replication Postgresql](https://www.percona.com/blog/2018/09/07/setting-up-streaming-replication-postgresql/)
+2. [Postgresql Raveland blog](https://blog.raveland.org/post/postgresql_sr/)
+3. [How to set up master slave replication for postgresql](https://www.howtoforge.com/tutorial/how-to-set-up-master-slave-replication-for-postgresql-96-on-ubuntu-1604/)
+
+## Required Modifications 
+1. Edit postgresql.conf section
+2. Add the process for docker configuration
+3. Take  master and slave sample IP
+4. Grammatical corrections.
